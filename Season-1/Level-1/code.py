@@ -10,24 +10,34 @@ Follow the instructions below to get started:
 5. If stuck then read the hint
 6. Compare your solution with solution.py
 '''
+# TODO0 - Fix the total amount payable for an order exceeded bug
+# TODO2 - Remove the DEBUG flag before submitting the solution
 
 from collections import namedtuple
+from decimal import Decimal
 
+DEBUG = False
 Order = namedtuple('Order', 'id, items')
 Item = namedtuple('Item', 'type, description, amount, quantity')
 
+
 def validorder(order: Order):
-    net = 0
+    net = Decimal('0.00')
 
     for item in order.items:
         if item.type == 'payment':
-            net += item.amount
+            net += Decimal(str(item.amount))
+            if DEBUG:
+                print("net after adding payment: ", net)
         elif item.type == 'product':
-            net -= item.amount * item.quantity
+            net -= Decimal(str(item.amount)) * item.quantity
+            if DEBUG:
+                print("net after subtracting product: ", net)
         else:
             return "Invalid item type: %s" % item.type
-
-    if net != 0:
+        if DEBUG:
+            print("net: balance: ", net)
+    if net != Decimal('0.00'):
         return "Order ID: %s - Payment imbalance: $%0.2f" % (order.id, net)
     else:
         return "Order ID: %s - Full payment received!" % order.id
