@@ -11,6 +11,7 @@ Follow the instructions below to get started:
 6. Compare your solution with solution.py
 '''
 # TODO0 - Fix the total amount payable for an order exceeded bug
+# TODO1 - Fix test_4 in tests.py
 # TODO2 - Remove the DEBUG flag before submitting the solution
 
 from collections import namedtuple
